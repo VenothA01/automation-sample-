@@ -13,13 +13,12 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class DemoTest {
 
+
+
     @Test
     public void testLogin(){
         FrameworkConfig config = ConfigCache.getOrCreate(FrameworkConfig.class);
         System.out.println(ConfigFactory.getConfig().browser());
-//        WebDriverManager.safaridriver().arm64().setup();;
-//        WebDriver driver = new SafariDriver();
-//        driver.get("https://www.google.com/");
-//        driver.quit();
+//
     }
 }
