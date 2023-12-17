@@ -3,14 +3,97 @@ package com.dailycoder;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class SolutionTest {
+
+
+    private int findEquilibiriumIndex(int[] arr){
+        return 1;
+    }
+
+    private int testMinClocksToCompleteAllCycles(int[] A,int[] B){
+
+        Stack<Integer> st = new Stack<>();
+        int result = 0;
+
+        for(int i:B)
+            st.push(i);
+
+        Queue<Integer> queue = new LinkedList<>();
+
+        for(int i:A)
+            queue.add(i);
+
+        while (!st.isEmpty()){
+
+            if(queue.removeIf(x->x.equals(st.peek())));
+        }
+
+        return result;
+    }
+
+    private Character findFirstRepeatingCharacter(String s){
+
+        Set<Character> set = new HashSet<>();
+        char[] charArr = s.toCharArray();
+
+        for(char c:charArr){
+            if(set.contains(c))
+                return c;
+
+            set.add(c);
+        }
+
+
+        return null;
+    }
+
+
+    private int leastAverageOfSubArraySizeK(int[] A,int K){
+
+        int result = 0;
+        int leastAverage = 0;
+        int N = A.length;
+        int average = 0;
+
+        for(int i=0;i<K;++i){
+            average += A[i];
+        }
+
+        leastAverage  = average;
+
+
+
+        for(int i=K;i<N;++i){
+            average = average+A[i]-A[i-K];
+            if(average<leastAverage){
+                leastAverage = average;
+                result = i-K+1;
+            }
+        }
+
+        return result;
+    }
+
+    public int maxSubArray(final int[] A) {
+
+        int max = A[0];
+        int sum = A[0];
+        int N = A.length;
+
+        for(int i=1;i<N;++i){
+
+            sum += A[i];
+            if(sum >max){
+                max = sum;
+            }
+        }
+
+        return max;
+    }
 
 
     public static int[] findLeaderinArray(int[] arr){
@@ -111,6 +194,32 @@ public class SolutionTest {
     public void testLeadersInArray(){
        Assert.assertArrayEquals(findLeaderinArray(new int[]{16, 17, 4, 3, 5, 2}),new int[]{17,5,2});
        Assert.assertArrayEquals(findLeaderinArray(new int[]{5, 4}),new int[]{5, 4});
+    }
 
+    @Test
+    public void testMaxSubArray(){
+
+        String str = new String("java");
+        str.concat("prog");
+        System.out.println(str);
+
+        int[] arr = {1,2,3,4,-10};
+        Assert.assertEquals(10,maxSubArray(arr));
+    }
+
+
+    @Test
+    public void testLeastAverageOfSubArraySizeK(){
+
+        Assert.assertEquals(3,leastAverageOfSubArraySizeK(new int[]{3, 7, 90, 20, 10, 50, 40},3));
+        Assert.assertEquals(2,leastAverageOfSubArraySizeK(new int[]{3, 7, 5, 20, -10, 0, 12},2));
+    }
+
+    @Test
+    public void firstRepeatingCharacterTest(){
+        Assert.assertEquals(new Character('r'),findFirstRepeatingCharacter("freshworks"));
+        Assert.assertEquals(new Character('a'),findFirstRepeatingCharacter("amazon"));
+        Assert.assertEquals(new Character('p'),findFirstRepeatingCharacter("paypal"));
+        Assert.assertEquals(new Character('a'),findFirstRepeatingCharacter("standardchartered"));
     }
 }
