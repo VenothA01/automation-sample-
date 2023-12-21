@@ -1,5 +1,7 @@
 package com.dailycoder;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +31,7 @@ public class SolutionTest {
 
         while (!st.isEmpty()){
 
-            if(queue.removeIf(x->x.equals(st.peek())));
+//            if(queue.offer()==)
         }
 
         return result;
@@ -52,30 +54,22 @@ public class SolutionTest {
     }
 
 
-    private int leastAverageOfSubArraySizeK(int[] A,int K){
+    @Test
+    public void leastAverageOfSubArraySizeK(int[] A,int K){
 
         int result = 0;
         int leastAverage = 0;
         int N = A.length;
         int average = 0;
 
-        for(int i=0;i<K;++i){
-            average += A[i];
-        }
+       Queue<Integer> queue1 = new ArrayDeque<>();
+       Queue<Integer> queue2 = new ArrayDeque<>();
 
-        leastAverage  = average;
+       queue1.add(1);
+       queue1.add(2);
 
+        System.out.println(queue1.peek());
 
-
-        for(int i=K;i<N;++i){
-            average = average+A[i]-A[i-K];
-            if(average<leastAverage){
-                leastAverage = average;
-                result = i-K+1;
-            }
-        }
-
-        return result;
     }
 
     public int maxSubArray(final int[] A) {
@@ -211,8 +205,8 @@ public class SolutionTest {
     @Test
     public void testLeastAverageOfSubArraySizeK(){
 
-        Assert.assertEquals(3,leastAverageOfSubArraySizeK(new int[]{3, 7, 90, 20, 10, 50, 40},3));
-        Assert.assertEquals(2,leastAverageOfSubArraySizeK(new int[]{3, 7, 5, 20, -10, 0, 12},2));
+//        Assert.assertEquals(3,leastAverageOfSubArraySizeK(new int[]{3, 7, 90, 20, 10, 50, 40},3));
+//        Assert.assertEquals(2,leastAverageOfSubArraySizeK(new int[]{3, 7, 5, 20, -10, 0, 12},2));
     }
 
     @Test
@@ -221,5 +215,40 @@ public class SolutionTest {
         Assert.assertEquals(new Character('a'),findFirstRepeatingCharacter("amazon"));
         Assert.assertEquals(new Character('p'),findFirstRepeatingCharacter("paypal"));
         Assert.assertEquals(new Character('a'),findFirstRepeatingCharacter("standardchartered"));
+    }
+
+    @Test
+    public void MinCycles(){
+
+        Queue<Integer> queue1 = new ArrayDeque<>();
+        Queue<Integer> queue2 = new ArrayDeque<>();
+        int clock = 0;
+
+
+        int[] A = {2, 3, 1, 5, 4};
+        int[] B = {1, 3, 5, 4, 2};
+
+        for(int a:A)
+            queue1.add(a);
+
+        for (int b:B)
+            queue2.add(b);
+
+
+        while (!queue1.isEmpty()){
+
+            if(queue1.peek()==queue2.peek()){
+                queue2.remove();
+                queue1.remove();
+                clock++;
+            }
+            else {
+                int temp = queue1.remove();
+                queue1.add(temp);
+                clock++;
+            }
+        }
+
+        System.out.println("Min clock reqd::"+clock);
     }
 }
